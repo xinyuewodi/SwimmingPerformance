@@ -9,13 +9,10 @@ bool SwimRecordTableManager::creatTable()
 {
     QString create_sql = "create table if not exists 'SwimRecordTable'"
                          "(Id integer primary key autoincrement,"
+                         "TotalLength integer NOT NULL,"
                          "TotalLapCount integer NOT NULL,"
                          "TotalTimeCost TIME NOT NULL,"
                          "AvgTimeCost TIME,"
-                         "FastestLap NVARCHAR(10),"
-                         "FLapTimeCost TIME,"
-                         "SlowestLap NVARCHAR(10),"
-                         "SLapTimeCost TIME,"
                          "Date DATE NOT NULL)";
 
     QSqlQuery query(_pManager->getConnection());
@@ -31,23 +28,20 @@ bool SwimRecordTableManager::creatTable()
 
 bool SwimRecordTableManager::appendRecord(SwimRecord &record)
 {
-    if(0 >= record.totalLap || QTime(0,0) == record.totalTime)
+    if(0 >= record.totalLap)
     {
-        qDebug() << "total lap or total time is zero!";
+        qDebug() << "total lap is zero!";
         return false;
     }
 
-    QString append_sql = "insert into SwimRecordTable"
-                         " values(?,?,?,?,?,?,?,?)";
+    QString append_sql = "insert into SwimRecordTable(TotalLength,TotalLapCount,TotalTimeCost,AvgTimeCost,Date)"
+                         " values(?,?,?,?,?)";
     QSqlQuery query(_pManager->getConnection());
     query.prepare(append_sql);
+    query.addBindValue(record.totalLength);
     query.addBindValue(record.totalLap);
     query.addBindValue(record.totalTime);
     query.addBindValue(record.avgTime);
-    query.addBindValue(record.FastestLapNum);
-    query.addBindValue(record.FLapTimeCost);
-    query.addBindValue(record.SLowestLapNum);
-    query.addBindValue(record.SLapTimeCost);
     query.addBindValue(record.date);
 
     bool flag = query.exec();
@@ -100,14 +94,11 @@ bool SwimRecordTableManager::getRecord(int id, SwimRecord &record)
     while(query.next())
     {
         record.id = query.value(0).toInt();
-        record.totalLap = query.value(1).toInt();
-        record.totalTime = query.value(2).toTime();
-        record.avgTime = query.value(3).toTime();
-        record.FastestLapNum = query.value(4).toString();
-        record.FLapTimeCost = query.value(5).toTime();
-        record.SLowestLapNum = query.value(6).toString();
-        record.SLapTimeCost = query.value(7).toTime();
-        record.date = query.value(8).toDate();
+        record.totalLength = query.value(1).toInt();
+        record.totalLap = query.value(2).toInt();
+        record.totalTime = query.value(3).toTime();
+        record.avgTime = query.value(4).toTime();
+        record.date = query.value(5).toDate();
     }
     return true;
 }
