@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,18 +28,21 @@ SOURCES += \
         mainwindow.cpp \
     dialog_addrecord.cpp \
     databasemanager.cpp \
-    swimrecordtablemanager.cpp
+    swimrecordtablemanager.cpp \
+    settingdialog.cpp
 
 HEADERS += \
         mainwindow.h \
     dialog_addrecord.h \
     databasemanager.h \
     globals.h \
-    swimrecordtablemanager.h
+    swimrecordtablemanager.h \
+    settingdialog.h
 
 FORMS += \
         mainwindow.ui \
-    dialog_addrecord.ui
+    dialog_addrecord.ui \
+    settingdialog.ui
 
 RESOURCES += \
     resources.qrc

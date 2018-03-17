@@ -102,3 +102,17 @@ bool SwimRecordTableManager::getRecord(int id, SwimRecord &record)
     }
     return true;
 }
+
+bool SwimRecordTableManager::clearRecord()
+{
+    QString clear_sql = "delete from SwimRecordTable";
+    QSqlQuery query(_pManager->getConnection());
+    query.prepare(clear_sql);
+    bool flag = query.exec();
+    if(false == flag)
+    {
+        qDebug() << "SwimRecordTableManager::clearRecord():" << query.lastError();
+        return false;
+    }
+    return true;
+}
