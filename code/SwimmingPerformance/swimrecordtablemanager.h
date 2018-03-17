@@ -18,6 +18,7 @@ public:
     bool appendRecord(SwimRecord &record);              //添加记录，并返回记录id
     bool removeRecord(int id);                          //删除记录
     bool getRecord(int id, SwimRecord &record);         //获取记录
+    bool clearRecord();                                 //清空数据
 
 private:
     DataBaseManager *_pManager;

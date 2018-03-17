@@ -21,15 +21,18 @@ public:
     explicit Dialog_addRecord(QWidget *parent = 0);
     ~Dialog_addRecord();
 
+public:
+    void readSettings();                                                    //读取配置
+
 private slots:
 
     void on_pushButton_close_clicked();                                     //点击关闭按钮
 
     void on_pushButton_confirm_clicked();                                   //点击确认按钮
 
-    void on_spinBox_totalLaps_valueChanged(int arg1);                       //总圈数变化时，自动计算总距离
-
     void on_lineEdit_totalTime_textChanged(const QString &arg1);            //总时间变化时，自动计算每圈耗时
+
+    void on_lineEdit_totalLength_textChanged(const QString &arg1);
 
 private:
     Ui::Dialog_addRecord *ui;
