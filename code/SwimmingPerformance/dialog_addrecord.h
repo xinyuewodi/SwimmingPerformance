@@ -23,11 +23,13 @@ public:
 
 private slots:
 
-    void on_pushButton_close_clicked();
+    void on_pushButton_close_clicked();                                     //点击关闭按钮
 
-    void on_pushButton_confirm_clicked();
+    void on_pushButton_confirm_clicked();                                   //点击确认按钮
 
-    void on_spinBox_totalLaps_valueChanged(int arg1);
+    void on_spinBox_totalLaps_valueChanged(int arg1);                       //总圈数变化时，自动计算总距离
+
+    void on_lineEdit_totalTime_textChanged(const QString &arg1);            //总时间变化时，自动计算每圈耗时
 
 private:
     Ui::Dialog_addRecord *ui;

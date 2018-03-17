@@ -69,3 +69,24 @@ void Dialog_addRecord::on_spinBox_totalLaps_valueChanged(int arg1)
     int length = 2*poolLength*arg1;
     ui->lineEdit_totalLength->setText(QString::number(length));
 }
+
+void Dialog_addRecord::on_lineEdit_totalTime_textChanged(const QString &arg1)
+{
+    int lapCount = ui->spinBox_totalLaps->text().toInt();           //总圈数
+    //检查参数非零
+    if(0 == lapCount || "00:00:00" == arg1)
+        return;
+
+    QTime tmpTime = QTime::fromString(arg1, "hh:mm:ss");
+    int seconds = tmpTime.hour()*60*60 + tmpTime.minute()*60 + tmpTime.second();    //换算成秒
+    int avgSeconds = seconds/lapCount;                                              //每圈平均耗时
+    //每圈平均耗时 从秒 转换为 时分秒
+    int hour = avgSeconds/3600;
+    int minute = avgSeconds%3600/60;
+    int second = avgSeconds%3600%60;
+    QTime avgTime;
+    avgTime.setHMS(hour, minute, second);
+    QString avgTime_str = avgTime.toString("hh:mm:ss");
+    //显示
+    ui->lineEdit_avgTime->setText(avgTime_str);
+}

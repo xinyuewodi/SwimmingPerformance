@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
+#include <QtCharts>
+using namespace QtCharts;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initialDataBase();
     initialValues();
+
+    QChartView *pView = new QChartView(this);
+    ui->verticalLayout_barChart->addWidget(pView);
 }
 
 MainWindow::~MainWindow()
@@ -41,9 +45,29 @@ void MainWindow::initialValues()
     pDialog_add = nullptr;
 }
 
+void MainWindow::drawBarChart_last30days()
+{
+
+}
+
+void MainWindow::drawBarChart_last7days()
+{
+
+}
+
 void MainWindow::on_pushButton_addRecord_clicked()
 {
     pDialog_add = new Dialog_addRecord;
     pDialog_add->setAttribute(Qt::WA_DeleteOnClose);
     pDialog_add->exec();
+}
+
+void MainWindow::on_radioButton_last7days_clicked()
+{
+    drawBarChart_last7days();
+}
+
+void MainWindow::on_radioButton_last30days_clicked()
+{
+    drawBarChart_last30days();
 }
