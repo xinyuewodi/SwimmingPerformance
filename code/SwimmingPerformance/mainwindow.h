@@ -3,13 +3,15 @@
 
 #include <QMainWindow>
 #include <QDebug>
-
+#include <QSqlTableModel>
 
 #include "dialog_addrecord.h"
 #include "databasemanager.h"
 #include "swimrecordtablemanager.h"
 #include "settingdialog.h"
 
+#define DEBUG_MAINWINDOW
+#undef DEBUG_MAINWINDOW
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +31,8 @@ public:
     void drawBarChart_last30days();                         //画过去30天的数据
     void drawBarChart_last7days();                          //画过去7天的数据
     void readSettings();
+    void initialTableModel();                               //初始化游泳记录表的model
+    void refreshTableModel();                               //刷新游泳纪录表的model
 
 private slots:
 
@@ -42,7 +46,9 @@ private slots:
 
     void on_pushButton_delete_clicked();
 
-    void on_pushButton_setting_clicked();
+    void on_pushButton_add2_clicked();
+
+    void on_actionDisplay_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -50,6 +56,7 @@ private:
     DataBaseManager *_pDataBase;
     SwimRecordTableManager _swimRecordManager;
     SettingDialog *_pSettingDialog;
+    QSqlTableModel *_pModel;
 };
 
 #endif // MAINWINDOW_H
