@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //刷新列表显示
     initialTableModel();
     refreshTableModel();
+    //刷新总距离
+    refreshTotalDistance();
 }
 
 MainWindow::~MainWindow()
@@ -98,6 +100,7 @@ void MainWindow::refreshTableModel()
 {
     _pModel->setTable("SwimRecordTable");
     _pModel->setEditStrategy(QSqlTableModel::OnRowChange);
+    _pModel->setSort(5, Qt::DescendingOrder);
     _pModel->select();
     _pModel->setHeaderData(0, Qt::Horizontal, tr("Id"));
     _pModel->setHeaderData(1, Qt::Horizontal, tr("全程（米）"));
@@ -110,6 +113,13 @@ void MainWindow::refreshTableModel()
     ui->tableView_dataDisplay->hideColumn(0);
 }
 
+void MainWindow::refreshTotalDistance()
+{
+    int totalDistance = _swimRecordManager.getTotalDistance();
+
+    ui->lineEdit_totalDistance->setText(QString::number(totalDistance) + "米");
+}
+
 void MainWindow::on_pushButton_addRecord_clicked()
 {
     _pDialog_add = new Dialog_addRecord;
@@ -118,6 +128,8 @@ void MainWindow::on_pushButton_addRecord_clicked()
 
     //刷新列表显示
     refreshTableModel();
+    //刷新总距离
+    refreshTotalDistance();
 }
 
 void MainWindow::on_radioButton_last7days_clicked()
@@ -150,6 +162,8 @@ void MainWindow::on_pushButton_clear_clicked()
 
         //刷新列表显示
         refreshTableModel();
+        //刷新总距离
+        refreshTotalDistance();
     }
 }
 
@@ -180,6 +194,8 @@ void MainWindow::on_pushButton_delete_clicked()
         _swimRecordManager.removeRecord(idToBeDel);
         //刷新列表显示
         refreshTableModel();
+        //刷新总距离
+        refreshTotalDistance();
     }
 }
 

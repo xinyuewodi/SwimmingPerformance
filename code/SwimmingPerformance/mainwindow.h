@@ -33,6 +33,7 @@ public:
     void readSettings();
     void initialTableModel();                               //初始化游泳记录表的model
     void refreshTableModel();                               //刷新游泳纪录表的model
+    void refreshTotalDistance();                            //刷新游泳总距离
 
 private slots:
 

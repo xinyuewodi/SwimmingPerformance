@@ -116,3 +116,25 @@ bool SwimRecordTableManager::clearRecord()
     }
     return true;
 }
+
+int SwimRecordTableManager::getTotalDistance()
+{
+    QString totalDistance_sql;
+    totalDistance_sql = "select sum(TotalLength) from SwimRecordTable";
+    QSqlQuery query(_pManager->getConnection());
+    query.prepare(totalDistance_sql);
+
+    bool flag = query.exec();
+    if(false == flag)
+    {
+        return 0;
+    }
+
+    int totalDistance = 0;
+    while(query.next())
+    {
+        totalDistance = query.value(0).toInt();
+    }
+    return totalDistance;
+
+}
