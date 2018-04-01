@@ -6,6 +6,8 @@
 #include <QSqlError>
 #include <QSqlTableModel>
 
+#include <QTime>
+
 #include "globals.h"
 #include "databasemanager.h"
 
@@ -19,6 +21,9 @@ public:
     bool removeRecord(int id);                          //删除记录
     bool getRecord(int id, SwimRecord &record);         //获取记录
     bool clearRecord();                                 //清空数据
+
+    int getTotalDistance();                             //获取游泳总距离
+    QString getTotalTimeCost();                           //获取总时长
 
 private:
     DataBaseManager *_pManager;

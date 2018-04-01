@@ -18,10 +18,14 @@ public:
     explicit SettingDialog(QWidget *parent = 0);
     ~SettingDialog();
 
+    void readSettings();
+
 private slots:
     void on_pushButton_cancel_clicked();
 
     void on_pushButton_confirm_clicked();
+
+    void on_pushButton_confirmAge_clicked();
 
 private:
     Ui::SettingDialog *ui;
