@@ -6,6 +6,8 @@
 #include <QSqlError>
 #include <QSqlTableModel>
 
+#include <QTime>
+
 #include "globals.h"
 #include "databasemanager.h"
 
@@ -21,6 +23,7 @@ public:
     bool clearRecord();                                 //清空数据
 
     int getTotalDistance();                             //获取游泳总距离
+    QString getTotalTimeCost();                           //获取总时长
 
 private:
     DataBaseManager *_pManager;

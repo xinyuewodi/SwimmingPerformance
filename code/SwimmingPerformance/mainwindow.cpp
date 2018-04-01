@@ -31,11 +31,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //设置初始页面
     ui->tabWidget->setCurrentIndex(0);
 
-    //刷新列表显示
+    //初始化model
     initialTableModel();
-    refreshTableModel();
-    //刷新总距离
-    refreshTotalDistance();
+
+    //刷新UI显示
+    refreshUI();
 }
 
 MainWindow::~MainWindow()
@@ -79,21 +79,38 @@ void MainWindow::drawBarChart_last7days()
 void MainWindow::readSettings()
 {
     QSettings settings;
-    QString settings_str = settings.value("DataDisplay").toString();
-    if("last7days" == settings_str)
+    //读取 数据显示
+    QString settings_display = settings.value("DataDisplay").toString();
+    if("last7days" == settings_display)
     {
         ui->radioButton_last7days->setChecked(true);
     }
-    else if("last30days" == settings_str)
+    else if("last30days" == settings_display)
     {
         ui->radioButton_last30days->setChecked(true);
     }
     else{}
+    //读取 开始游泳日期
+    _date = settings.value("SwimStartDate").toDate();
 }
 
 void MainWindow::initialTableModel()
 {
     _pModel = new QSqlTableModel(this, _pDataBase->getConnection());
+}
+
+void MainWindow::refreshUI()
+{
+    //刷新列表显示
+    refreshTableModel();
+    //刷新总距离
+    refreshTotalDistance();
+    //刷新总时长
+    refreshTotalTime();
+    //刷新泳龄
+    refreshSwimAge();
+    //刷新成就
+    refreshAchievement();
 }
 
 void MainWindow::refreshTableModel()
@@ -120,16 +137,72 @@ void MainWindow::refreshTotalDistance()
     ui->lineEdit_totalDistance->setText(QString::number(totalDistance) + "米");
 }
 
+void MainWindow::refreshTotalTime()
+{
+    QString totalTime;
+    totalTime = _swimRecordManager.getTotalTimeCost();
+#ifdef DEBUG_MAINWINDOW
+    qDebug() << "total time :" << totalTime;
+#endif
+    ui->lineEdit_totalTime->setText(totalTime);
+}
+
+void MainWindow::refreshSwimAge()
+{
+    if(false == _date.isValid())
+        return;
+
+    qint64 days = _date.daysTo(QDate::currentDate());
+#ifdef DEBUG_MAINWINDOW
+    qDebug() << "total days :" << days;
+#endif
+    int year = days/365;
+    int month = days%365/30;
+    int day = days%365%30;
+    ui->lineEdit_swimAge->setText(QString("%1 年 %2 个月 %3 天").arg(year).arg(month).arg(day));
+}
+
+void MainWindow::refreshAchievement()
+{
+    int totalDistance = _swimRecordManager.getTotalDistance();      //获取总泳程
+
+    if(6400000 <= totalDistance)
+    {
+        ui->lineEdit_achievements->setText("横渡大西洋（大于6400千米）");
+    }
+    else if(34000 <= totalDistance)
+    {
+        ui->lineEdit_achievements->setText("横渡英吉利海峡（大于34千米）");
+    }
+    else if(26600 <= totalDistance)
+    {
+        ui->lineEdit_achievements->setText("横渡琼州海峡（大于26.6千米）");
+    }
+    else if(1500 <= totalDistance)
+    {
+        ui->lineEdit_achievements->setText("横渡长江（大于1.5千米）");
+    }
+    else if(800 <= totalDistance)
+    {
+        ui->lineEdit_achievements->setText("横渡珠江（大于800米）");
+    }
+    else if(50 <= totalDistance)
+    {
+        ui->lineEdit_achievements->setText("泳池级选手（>=50米）");
+    }
+    else
+    {
+        ui->lineEdit_achievements->setText("征服泳池的路上");
+    }
+}
+
 void MainWindow::on_pushButton_addRecord_clicked()
 {
     _pDialog_add = new Dialog_addRecord;
     _pDialog_add->setAttribute(Qt::WA_DeleteOnClose);
     _pDialog_add->exec();
 
-    //刷新列表显示
-    refreshTableModel();
-    //刷新总距离
-    refreshTotalDistance();
+    refreshUI();
 }
 
 void MainWindow::on_radioButton_last7days_clicked()
@@ -160,10 +233,8 @@ void MainWindow::on_pushButton_clear_clicked()
         msg2.setInformativeText("完成数据清空");
         msg2.exec();
 
-        //刷新列表显示
-        refreshTableModel();
-        //刷新总距离
-        refreshTotalDistance();
+        //刷新UI显示
+        refreshUI();
     }
 }
 
@@ -192,16 +263,10 @@ void MainWindow::on_pushButton_delete_clicked()
     if(QMessageBox::Yes == ret)
     {
         _swimRecordManager.removeRecord(idToBeDel);
-        //刷新列表显示
-        refreshTableModel();
-        //刷新总距离
-        refreshTotalDistance();
-    }
-}
 
-void MainWindow::on_pushButton_add2_clicked()
-{
-    on_pushButton_addRecord_clicked();
+        //刷新UI显示
+        refreshUI();
+    }
 }
 
 void MainWindow::on_actionDisplay_triggered()
@@ -209,4 +274,7 @@ void MainWindow::on_actionDisplay_triggered()
     _pSettingDialog = new SettingDialog;
     _pSettingDialog->setAttribute(Qt::WA_DeleteOnClose);
     _pSettingDialog->exec();
+
+    //刷新泳龄
+    refreshSwimAge();
 }

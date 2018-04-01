@@ -1,4 +1,5 @@
 #include "swimrecordtablemanager.h"
+#include <QStringListIterator>
 
 SwimRecordTableManager::SwimRecordTableManager()
 {
@@ -127,6 +128,7 @@ int SwimRecordTableManager::getTotalDistance()
     bool flag = query.exec();
     if(false == flag)
     {
+        qDebug() << "SwimRecordTableManager::getTotalDistance():" << query.lastError();
         return 0;
     }
 
@@ -136,5 +138,43 @@ int SwimRecordTableManager::getTotalDistance()
         totalDistance = query.value(0).toInt();
     }
     return totalDistance;
+}
 
+QString SwimRecordTableManager::getTotalTimeCost()
+{
+    QString totalTime_sql;
+    totalTime_sql = "select TotalTimeCost from SwimRecordTable";
+
+    QSqlQuery query(_pManager->getConnection());
+    query.prepare(totalTime_sql);
+
+    bool flag = query.exec();
+    if(false == flag)
+    {
+        qDebug() << "SwimRecordTableManager::getTotalTimeCost():" << query.lastError();
+        return QString();
+    }
+
+    QString time;                   //单个时间
+    int totalDays = 0;              //总天数
+    int totalHours = 0;             //总小时
+    int totalMinutes = 0;           //总分钟
+    int totalSeconds = 0;           //总秒
+    //从数据库中获取所有时间列表
+    while(query.next())
+    {
+        totalHours += query.value(0).toTime().hour();
+        totalMinutes += query.value(0).toTime().minute();
+        totalSeconds += query.value(0).toTime().second();
+    }
+
+    //计算后的总时间
+
+    int Seconds = totalSeconds%60;                                  //秒
+    int Minutes = (totalMinutes + totalSeconds/60)%60;              //分钟
+    int Hours = (totalHours + totalMinutes/60)%60;                  //小时
+    int Days = (totalHours + totalMinutes/60)/24;                   //天数
+    time = QString("%1 天 %2 小时 %3 分钟 %4 秒").arg(Days).arg(Hours).arg(Minutes).arg(Seconds);
+
+    return time;
 }
