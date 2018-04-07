@@ -45,17 +45,16 @@ public:
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_2;
     QGridLayout *gridLayout;
-    QLabel *label_2;
     QLineEdit *lineEdit_totalDistance;
-    QSpacerItem *horizontalSpacer_4;
-    QSpacerItem *horizontalSpacer_7;
-    QSpacerItem *horizontalSpacer_5;
-    QSpacerItem *horizontalSpacer_3;
+    QLabel *label_2;
     QSpacerItem *horizontalSpacer_6;
-    QLabel *label_4;
-    QLabel *label_3;
     QLineEdit *lineEdit_totalTime;
+    QLabel *label_3;
     QLineEdit *lineEdit_swimAge;
+    QSpacerItem *horizontalSpacer_3;
+    QSpacerItem *horizontalSpacer_5;
+    QLabel *label_4;
+    QSpacerItem *horizontalSpacer_4;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_barChart;
@@ -79,7 +78,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(726, 614);
+        MainWindow->resize(1203, 646);
         QIcon icon;
         icon.addFile(QStringLiteral(":/picture/pic/swim.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
@@ -110,83 +109,79 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        label_2 = new QLabel(groupBox);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
-        label_2->setSizePolicy(sizePolicy);
-        label_2->setLayoutDirection(Qt::LeftToRight);
-
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
-
         lineEdit_totalDistance = new QLineEdit(groupBox);
         lineEdit_totalDistance->setObjectName(QStringLiteral("lineEdit_totalDistance"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(lineEdit_totalDistance->sizePolicy().hasHeightForWidth());
-        lineEdit_totalDistance->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(lineEdit_totalDistance->sizePolicy().hasHeightForWidth());
+        lineEdit_totalDistance->setSizePolicy(sizePolicy);
         lineEdit_totalDistance->setFrame(false);
         lineEdit_totalDistance->setReadOnly(true);
 
         gridLayout->addWidget(lineEdit_totalDistance, 1, 1, 1, 1);
 
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
+        label_2 = new QLabel(groupBox);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
+        label_2->setSizePolicy(sizePolicy1);
+        label_2->setLayoutDirection(Qt::LeftToRight);
 
-        gridLayout->addItem(horizontalSpacer_4, 3, 3, 1, 1);
-
-        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_7, 3, 2, 1, 1);
-
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_5, 1, 2, 1, 1);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_3, 0, 2, 1, 1);
+        gridLayout->addWidget(label_2, 1, 0, 1, 1);
 
         horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
 
         gridLayout->addItem(horizontalSpacer_6, 2, 2, 1, 1);
 
-        label_4 = new QLabel(groupBox);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        sizePolicy.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
-        label_4->setSizePolicy(sizePolicy);
-        label_4->setLayoutDirection(Qt::LeftToRight);
-
-        gridLayout->addWidget(label_4, 0, 0, 1, 1);
-
-        label_3 = new QLabel(groupBox);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy);
-        label_3->setLayoutDirection(Qt::LeftToRight);
-
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
-
         lineEdit_totalTime = new QLineEdit(groupBox);
         lineEdit_totalTime->setObjectName(QStringLiteral("lineEdit_totalTime"));
-        sizePolicy1.setHeightForWidth(lineEdit_totalTime->sizePolicy().hasHeightForWidth());
-        lineEdit_totalTime->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(lineEdit_totalTime->sizePolicy().hasHeightForWidth());
+        lineEdit_totalTime->setSizePolicy(sizePolicy);
         lineEdit_totalTime->setMinimumSize(QSize(0, 0));
         lineEdit_totalTime->setFrame(false);
         lineEdit_totalTime->setReadOnly(true);
 
         gridLayout->addWidget(lineEdit_totalTime, 2, 1, 1, 1);
 
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        sizePolicy1.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy1);
+        label_3->setLayoutDirection(Qt::LeftToRight);
+
+        gridLayout->addWidget(label_3, 2, 0, 1, 1);
+
         lineEdit_swimAge = new QLineEdit(groupBox);
         lineEdit_swimAge->setObjectName(QStringLiteral("lineEdit_swimAge"));
-        sizePolicy1.setHeightForWidth(lineEdit_swimAge->sizePolicy().hasHeightForWidth());
-        lineEdit_swimAge->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(lineEdit_swimAge->sizePolicy().hasHeightForWidth());
+        lineEdit_swimAge->setSizePolicy(sizePolicy);
         lineEdit_swimAge->setFrame(false);
         lineEdit_swimAge->setReadOnly(true);
 
         gridLayout->addWidget(lineEdit_swimAge, 0, 1, 1, 1);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_3, 0, 2, 1, 1);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Maximum, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_5, 1, 2, 1, 1);
+
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        sizePolicy1.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy1);
+        label_4->setLayoutDirection(Qt::LeftToRight);
+
+        gridLayout->addWidget(label_4, 0, 0, 1, 1);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_4, 2, 3, 1, 1);
 
 
         verticalLayout_2->addLayout(gridLayout);
@@ -282,7 +277,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 726, 28));
+        menuBar->setGeometry(QRect(0, 0, 1203, 28));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         MainWindow->setMenuBar(menuBar);
@@ -291,8 +286,8 @@ public:
         MainWindow->setStatusBar(statusBar);
 #ifndef QT_NO_SHORTCUT
         label_2->setBuddy(lineEdit_totalDistance);
-        label_4->setBuddy(lineEdit_swimAge);
         label_3->setBuddy(lineEdit_totalTime);
+        label_4->setBuddy(lineEdit_swimAge);
 #endif // QT_NO_SHORTCUT
         QWidget::setTabOrder(tabWidget, radioButton_last7times);
         QWidget::setTabOrder(radioButton_last7times, radioButton_last30times);
@@ -318,8 +313,8 @@ public:
         actionDisplay->setText(QApplication::translate("MainWindow", "\350\256\276\347\275\256", nullptr));
         groupBox->setTitle(QApplication::translate("MainWindow", "\345\237\272\346\234\254\344\277\241\346\201\257", nullptr));
         label_2->setText(QApplication::translate("MainWindow", "\346\200\273\346\263\263\347\250\213:", nullptr));
-        label_4->setText(QApplication::translate("MainWindow", "\346\263\263\351\276\204:", nullptr));
         label_3->setText(QApplication::translate("MainWindow", "\346\200\273\346\263\263\346\227\266:", nullptr));
+        label_4->setText(QApplication::translate("MainWindow", "\346\263\263\351\276\204:", nullptr));
         groupBox_2->setTitle(QApplication::translate("MainWindow", "\346\235\241\345\275\242\345\233\276", nullptr));
         radioButton_last7times->setText(QApplication::translate("MainWindow", "\350\277\207\345\216\2737\346\254\241", nullptr));
         radioButton_last30times->setText(QApplication::translate("MainWindow", "\350\277\207\345\216\27330\346\254\241", nullptr));
