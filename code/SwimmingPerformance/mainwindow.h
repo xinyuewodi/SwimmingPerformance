@@ -29,8 +29,8 @@ public:
 public:
     bool initialDataBase();
     void initialValues();
-    void drawBarChart_last30days();                         //画过去30天的数据
-    void drawBarChart_last7days();                          //画过去7天的数据
+    void drawBarChart_last30times();                         //画过去30天的数据
+    void drawBarChart_last7times();                          //画过去7天的数据
     void readSettings();
     void initialTableModel();                               //初始化游泳记录表的model
 
@@ -45,9 +45,9 @@ private slots:
 
     void on_pushButton_addRecord_clicked();
 
-    void on_radioButton_last7days_clicked();
+    void on_radioButton_last7times_clicked();
 
-    void on_radioButton_last30days_clicked();
+    void on_radioButton_last30times_clicked();
 
     void on_pushButton_clear_clicked();
 

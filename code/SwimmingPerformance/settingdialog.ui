@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>417</width>
-    <height>203</height>
+    <height>260</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,9 +31,9 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QRadioButton" name="radioButton_last7days">
+           <widget class="QRadioButton" name="radioButton_last7times">
             <property name="text">
-             <string>过去7天数据</string>
+             <string>过去7次数据</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -41,9 +41,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="radioButton_last30days">
+           <widget class="QRadioButton" name="radioButton_last30times">
             <property name="text">
-             <string>过去30天数据</string>
+             <string>过去30次数据</string>
             </property>
            </widget>
           </item>
@@ -192,8 +192,8 @@
  </widget>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>radioButton_last7days</tabstop>
-  <tabstop>radioButton_last30days</tabstop>
+  <tabstop>radioButton_last7times</tabstop>
+  <tabstop>radioButton_last30times</tabstop>
   <tabstop>radioButton_pollLength50</tabstop>
   <tabstop>radioButton_poolLength25</tabstop>
   <tabstop>pushButton_confirm</tabstop>

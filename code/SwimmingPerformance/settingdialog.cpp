@@ -34,11 +34,11 @@ void SettingDialog::readSettings()
     //设置UI显示
     if("last7days" == dataDisplay)
     {
-        ui->radioButton_last7days->setChecked(true);
+        ui->radioButton_last7times->setChecked(true);
     }
     else if("last30days" == dataDisplay)
     {
-        ui->radioButton_last30days->setChecked(true);
+        ui->radioButton_last30times->setChecked(true);
     }
 
     if(50 == poolLength)
@@ -61,13 +61,13 @@ void SettingDialog::on_pushButton_cancel_clicked()
 void SettingDialog::on_pushButton_confirm_clicked()
 {
     QSettings settings;
-    if(true == ui->radioButton_last7days->isChecked())
+    if(true == ui->radioButton_last7times->isChecked())
     {
-        settings.setValue("DataDisplay", "last7days");
+        settings.setValue("DataDisplay", "last7times");
     }
     else
     {
-        settings.setValue("DataDisplay", "last30days");
+        settings.setValue("DataDisplay", "last30times");
     }
 
     if(true == ui->radioButton_pollLength50->isChecked())
@@ -98,3 +98,4 @@ void SettingDialog::on_pushButton_confirmAge_clicked()
     msg.setText("保存成功");
     msg.exec();
 }
+

@@ -250,9 +250,9 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QRadioButton" name="radioButton_last7days">
+                <widget class="QRadioButton" name="radioButton_last7times">
                  <property name="text">
-                  <string>过去7天</string>
+                  <string>过去7次</string>
                  </property>
                  <property name="checked">
                   <bool>true</bool>
@@ -260,9 +260,9 @@
                 </widget>
                </item>
                <item>
-                <widget class="QRadioButton" name="radioButton_last30days">
+                <widget class="QRadioButton" name="radioButton_last30times">
                  <property name="text">
-                  <string>过去30天</string>
+                  <string>过去30次</string>
                  </property>
                 </widget>
                </item>
@@ -371,7 +371,7 @@
      <x>0</x>
      <y>0</y>
      <width>726</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -392,8 +392,8 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>radioButton_last7days</tabstop>
-  <tabstop>radioButton_last30days</tabstop>
+  <tabstop>radioButton_last7times</tabstop>
+  <tabstop>radioButton_last30times</tabstop>
   <tabstop>pushButton_addRecord</tabstop>
   <tabstop>pushButton_delete</tabstop>
   <tabstop>pushButton_clear</tabstop>
