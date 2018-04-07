@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QtCharts>
 
 #include "dialog_addrecord.h"
 #include "databasemanager.h"
@@ -28,8 +29,8 @@ public:
 public:
     bool initialDataBase();
     void initialValues();
-    void drawBarChart_last30days();                         //画过去30天的数据
-    void drawBarChart_last7days();                          //画过去7天的数据
+    void drawBarChart_last30times();                         //画过去30天的数据
+    void drawBarChart_last7times();                          //画过去7天的数据
     void readSettings();
     void initialTableModel();                               //初始化游泳记录表的model
 
@@ -38,15 +39,15 @@ public:
     void refreshTotalDistance();                            //刷新游泳总距离
     void refreshTotalTime();                                //刷新总时长
     void refreshSwimAge();                                  //刷新泳龄
-    void refreshAchievement();                              //刷新成就
+    void refreshBarChart();                                 //刷新条形图
 
 private slots:
 
     void on_pushButton_addRecord_clicked();
 
-    void on_radioButton_last7days_clicked();
+    void on_radioButton_last7times_clicked();
 
-    void on_radioButton_last30days_clicked();
+    void on_radioButton_last30times_clicked();
 
     void on_pushButton_clear_clicked();
 
@@ -63,6 +64,8 @@ private:
     QSqlTableModel *_pModel;
 
     QDate _date;                                            //游泳起始日期
+
+    QChartView *pView;
 };
 
 #endif // MAINWINDOW_H

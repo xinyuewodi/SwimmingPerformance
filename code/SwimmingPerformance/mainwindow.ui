@@ -62,22 +62,6 @@
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_5">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>成就:</string>
-               </property>
-               <property name="buddy">
-                <cstring>lineEdit_achievements</cstring>
-               </property>
-              </widget>
-             </item>
              <item row="1" column="1">
               <widget class="QLineEdit" name="lineEdit_totalDistance">
                <property name="sizePolicy">
@@ -109,22 +93,6 @@
                 </size>
                </property>
               </spacer>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="lineEdit_achievements">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
-               </property>
-              </widget>
              </item>
              <item row="3" column="2">
               <spacer name="horizontalSpacer_7">
@@ -282,9 +250,9 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QRadioButton" name="radioButton_last7days">
+                <widget class="QRadioButton" name="radioButton_last7times">
                  <property name="text">
-                  <string>过去7天</string>
+                  <string>过去7次</string>
                  </property>
                  <property name="checked">
                   <bool>true</bool>
@@ -292,9 +260,9 @@
                 </widget>
                </item>
                <item>
-                <widget class="QRadioButton" name="radioButton_last30days">
+                <widget class="QRadioButton" name="radioButton_last30times">
                  <property name="text">
-                  <string>过去30天</string>
+                  <string>过去30次</string>
                  </property>
                 </widget>
                </item>
@@ -403,7 +371,7 @@
      <x>0</x>
      <y>0</y>
      <width>726</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -424,9 +392,8 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>lineEdit_achievements</tabstop>
-  <tabstop>radioButton_last7days</tabstop>
-  <tabstop>radioButton_last30days</tabstop>
+  <tabstop>radioButton_last7times</tabstop>
+  <tabstop>radioButton_last30times</tabstop>
   <tabstop>pushButton_addRecord</tabstop>
   <tabstop>pushButton_delete</tabstop>
   <tabstop>pushButton_clear</tabstop>

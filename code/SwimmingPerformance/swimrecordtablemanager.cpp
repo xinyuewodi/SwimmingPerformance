@@ -104,6 +104,56 @@ bool SwimRecordTableManager::getRecord(int id, SwimRecord &record)
     return true;
 }
 
+bool SwimRecordTableManager::getRecord_last7Times(QList<SwimRecord> &recordList)
+{
+    QString select_sql = "select * from SwimRecordTable order by Date desc limit 0,7";
+    QSqlQuery query(_pManager->getConnection());
+    query.prepare(select_sql);
+
+    bool flag = query.exec();
+    if(false == flag)
+    {
+        qDebug() << "SwimRecordTableManager::getRecord_last7Times:"<< query.lastError();
+        return false;
+    }
+
+    SwimRecord tmpRec;
+    while(query.next())
+    {
+        tmpRec.id = query.value(0).toInt();
+        tmpRec.totalLength = query.value(1).toInt();
+        tmpRec.date = query.value(5).toDate();
+        recordList << tmpRec;
+    }
+
+    return true;
+}
+
+bool SwimRecordTableManager::getRecord_last30Times(QList<SwimRecord> &recordList)
+{
+    QString select_sql = "select * from SwimRecordTable order by Date desc limit 0,30";
+    QSqlQuery query(_pManager->getConnection());
+    query.prepare(select_sql);
+
+    bool flag = query.exec();
+    if(false == flag)
+    {
+        qDebug() << "SwimRecordTableManager::getRecord_last7Times:"<< query.lastError();
+        return false;
+    }
+
+    SwimRecord tmpRec;
+    while(query.next())
+    {
+        tmpRec.id = query.value(0).toInt();
+        tmpRec.totalLength = query.value(1).toInt();
+        tmpRec.date = query.value(5).toDate();
+        recordList << tmpRec;
+    }
+
+    return true;
+}
+
 bool SwimRecordTableManager::clearRecord()
 {
     QString clear_sql = "delete from SwimRecordTable";
@@ -156,7 +206,6 @@ QString SwimRecordTableManager::getTotalTimeCost()
     }
 
     QString time;                   //单个时间
-    int totalDays = 0;              //总天数
     int totalHours = 0;             //总小时
     int totalMinutes = 0;           //总分钟
     int totalSeconds = 0;           //总秒

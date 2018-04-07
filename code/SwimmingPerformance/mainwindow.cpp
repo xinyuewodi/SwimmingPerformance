@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initialValues();
 
     //创建条形图视图
-    QChartView *pView = new QChartView(this);
+    pView = new QChartView(this);
     ui->verticalLayout_barChart->addWidget(pView);
 
     //设置组织和应用名称
@@ -66,14 +66,112 @@ void MainWindow::initialValues()
     _pDialog_add = nullptr;
 }
 
-void MainWindow::drawBarChart_last30days()
+void MainWindow::drawBarChart_last30times()
 {
+    //1.获取游泳数据
+    QList<SwimRecord> recList;
+    bool flag = _swimRecordManager.getRecord_last30Times(recList);
+    if(false == flag)
+        return;
 
+    //2.数据填充
+    QList<QDate> dateList;                              //横轴数据
+    QBarSet *set = new QBarSet("游泳数据");              //纵轴数据
+
+    QListIterator<SwimRecord> i_date(recList);
+    while(i_date.hasNext())
+    {
+        dateList << i_date.next().date;                      //获取横轴坐标
+    }
+    QListIterator<SwimRecord> i_length(recList);
+    while(i_length.hasNext())
+    {
+        *set << i_length.next().totalLength;                //获取纵轴数据
+    }
+
+    QBarSeries *series = new QBarSeries();
+    series->append(set);
+
+    QChart *pchart = new QChart();
+    pchart->addSeries(series);
+    pchart->setAnimationOptions(QChart::AllAnimations);
+
+    QStringList categories;
+    int count = dateList.count();
+    int standard = 29;
+    if(standard > count)
+    {
+        standard = count - 1;
+    }
+    for(int i=standard; i>=0; --i)
+    {
+        if(dateList.at(i).isValid())
+        {
+            categories << QString("%1月%2日").arg(dateList.at(i).month()).arg(dateList.at(i).day());
+        }
+    }
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(categories);
+
+    pchart->createDefaultAxes();
+    pchart->setAxisX(axis, series);
+
+    pView->setChart(pchart);
+    pView->setRenderHint(QPainter::Antialiasing);
 }
 
-void MainWindow::drawBarChart_last7days()
+void MainWindow::drawBarChart_last7times()
 {
+    //1.获取游泳数据
+    QList<SwimRecord> recList;
+    bool flag = _swimRecordManager.getRecord_last7Times(recList);
+    if(false == flag)
+        return;
 
+    //2.数据填充
+    QList<QDate> dateList;                              //横轴数据
+    QBarSet *set = new QBarSet("游泳数据");              //纵轴数据
+
+    QListIterator<SwimRecord> i_date(recList);
+    while(i_date.hasNext())
+    {
+        dateList << i_date.next().date;                      //获取横轴坐标
+    }
+    QListIterator<SwimRecord> i_length(recList);
+    while(i_length.hasNext())
+    {
+        *set << i_length.next().totalLength;                //获取纵轴数据
+    }
+
+    QBarSeries *series = new QBarSeries();
+    series->append(set);
+
+    QChart *pchart = new QChart();
+    pchart->addSeries(series);
+    pchart->setAnimationOptions(QChart::AllAnimations);
+
+    QStringList categories;
+    int count = dateList.count();
+    int standard = 6;
+    if(standard > count)
+    {
+        standard = count - 1;
+    }
+    for(int i=standard; i>=0; --i)
+    {
+        if(dateList.at(i).isValid())
+        {
+            categories << QString("%1月%2日").arg(dateList.at(i).month()).arg(dateList.at(i).day());
+        }
+    }
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(categories);
+
+    pchart->createDefaultAxes();
+    pchart->setAxisX(axis, series);
+
+    pView->setChart(pchart);
+    pView->setRenderHint(QPainter::Antialiasing);
 }
 
 void MainWindow::readSettings()
@@ -81,13 +179,13 @@ void MainWindow::readSettings()
     QSettings settings;
     //读取 数据显示
     QString settings_display = settings.value("DataDisplay").toString();
-    if("last7days" == settings_display)
+    if("last7times" == settings_display)
     {
-        ui->radioButton_last7days->setChecked(true);
+        ui->radioButton_last7times->setChecked(true);
     }
-    else if("last30days" == settings_display)
+    else if("last30times" == settings_display)
     {
-        ui->radioButton_last30days->setChecked(true);
+        ui->radioButton_last30times->setChecked(true);
     }
     else{}
     //读取 开始游泳日期
@@ -109,8 +207,8 @@ void MainWindow::refreshUI()
     refreshTotalTime();
     //刷新泳龄
     refreshSwimAge();
-    //刷新成就
-    refreshAchievement();
+    //刷新条形图
+    refreshBarChart();
 }
 
 void MainWindow::refreshTableModel()
@@ -162,37 +260,15 @@ void MainWindow::refreshSwimAge()
     ui->lineEdit_swimAge->setText(QString("%1 年 %2 个月 %3 天").arg(year).arg(month).arg(day));
 }
 
-void MainWindow::refreshAchievement()
+void MainWindow::refreshBarChart()
 {
-    int totalDistance = _swimRecordManager.getTotalDistance();      //获取总泳程
-
-    if(6400000 <= totalDistance)
+    if(true == ui->radioButton_last7times->isChecked())
     {
-        ui->lineEdit_achievements->setText("横渡大西洋（大于6400千米）");
-    }
-    else if(34000 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("横渡英吉利海峡（大于34千米）");
-    }
-    else if(26600 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("横渡琼州海峡（大于26.6千米）");
-    }
-    else if(1500 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("横渡长江（大于1.5千米）");
-    }
-    else if(800 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("横渡珠江（大于800米）");
-    }
-    else if(50 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("泳池级选手（>=50米）");
+        drawBarChart_last7times();
     }
     else
     {
-        ui->lineEdit_achievements->setText("征服泳池的路上");
+        drawBarChart_last30times();
     }
 }
 
@@ -205,14 +281,14 @@ void MainWindow::on_pushButton_addRecord_clicked()
     refreshUI();
 }
 
-void MainWindow::on_radioButton_last7days_clicked()
+void MainWindow::on_radioButton_last7times_clicked()
 {
-    drawBarChart_last7days();
+    drawBarChart_last7times();
 }
 
-void MainWindow::on_radioButton_last30days_clicked()
+void MainWindow::on_radioButton_last30times_clicked()
 {
-    drawBarChart_last30days();
+    drawBarChart_last30times();
 }
 
 void MainWindow::on_pushButton_clear_clicked()
