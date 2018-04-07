@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initialValues();
 
     //创建条形图视图
-    QChartView *pView = new QChartView(this);
+    pView = new QChartView(this);
     ui->verticalLayout_barChart->addWidget(pView);
 
     //设置组织和应用名称
@@ -68,12 +68,52 @@ void MainWindow::initialValues()
 
 void MainWindow::drawBarChart_last30days()
 {
-
+    QList<QDate> dateList;
+    QDate today = QDate::currentDate();
+    QDate tmpDate;
+    for(int i=0; i<30; ++i)
+    {
+        tmpDate = today.addDays(-1);
+        dateList << tmpDate;
+        today = tmpDate;
+    }
 }
 
 void MainWindow::drawBarChart_last7days()
 {
+    //获取横轴坐标
+    QList<QDate> dateList;
+    QDate today = QDate::currentDate();
+    for(int i=0; i<7; ++i)
+    {
+        dateList << today;
+        today = today.addDays(-1);
+    }
 
+    //画图
+    QBarSet *set = new QBarSet("游泳数据");
+    *set << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+
+    QBarSeries *series = new QBarSeries();
+    series->append(set);
+
+    QChart *pchart = new QChart();
+    pchart->addSeries(series);
+    pchart->setAnimationOptions(QChart::AllAnimations);
+
+    QStringList categories;
+    for(int i=6; i>=0; --i)
+    {
+        categories << QString::number(dateList.at(i).day());
+    }
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(categories);
+
+    pchart->createDefaultAxes();
+    pchart->setAxisX(axis, series);
+
+    pView->setChart(pchart);
+    pView->setRenderHint(QPainter::Antialiasing);
 }
 
 void MainWindow::readSettings()
@@ -109,8 +149,8 @@ void MainWindow::refreshUI()
     refreshTotalTime();
     //刷新泳龄
     refreshSwimAge();
-    //刷新成就
-    refreshAchievement();
+    //刷新条形图
+    refreshBarChart();
 }
 
 void MainWindow::refreshTableModel()
@@ -162,37 +202,15 @@ void MainWindow::refreshSwimAge()
     ui->lineEdit_swimAge->setText(QString("%1 年 %2 个月 %3 天").arg(year).arg(month).arg(day));
 }
 
-void MainWindow::refreshAchievement()
+void MainWindow::refreshBarChart()
 {
-    int totalDistance = _swimRecordManager.getTotalDistance();      //获取总泳程
-
-    if(6400000 <= totalDistance)
+    if(true == ui->radioButton_last7days->isChecked())
     {
-        ui->lineEdit_achievements->setText("横渡大西洋（大于6400千米）");
-    }
-    else if(34000 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("横渡英吉利海峡（大于34千米）");
-    }
-    else if(26600 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("横渡琼州海峡（大于26.6千米）");
-    }
-    else if(1500 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("横渡长江（大于1.5千米）");
-    }
-    else if(800 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("横渡珠江（大于800米）");
-    }
-    else if(50 <= totalDistance)
-    {
-        ui->lineEdit_achievements->setText("泳池级选手（>=50米）");
+        drawBarChart_last7days();
     }
     else
     {
-        ui->lineEdit_achievements->setText("征服泳池的路上");
+        drawBarChart_last30days();
     }
 }
 

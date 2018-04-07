@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QtCharts>
 
 #include "dialog_addrecord.h"
 #include "databasemanager.h"
@@ -38,7 +39,7 @@ public:
     void refreshTotalDistance();                            //刷新游泳总距离
     void refreshTotalTime();                                //刷新总时长
     void refreshSwimAge();                                  //刷新泳龄
-    void refreshAchievement();                              //刷新成就
+    void refreshBarChart();                                 //刷新条形图
 
 private slots:
 
@@ -63,6 +64,8 @@ private:
     QSqlTableModel *_pModel;
 
     QDate _date;                                            //游泳起始日期
+
+    QChartView *pView;
 };
 
 #endif // MAINWINDOW_H

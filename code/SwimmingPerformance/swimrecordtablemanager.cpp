@@ -156,7 +156,6 @@ QString SwimRecordTableManager::getTotalTimeCost()
     }
 
     QString time;                   //单个时间
-    int totalDays = 0;              //总天数
     int totalHours = 0;             //总小时
     int totalMinutes = 0;           //总分钟
     int totalSeconds = 0;           //总秒
